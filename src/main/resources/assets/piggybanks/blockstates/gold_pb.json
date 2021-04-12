@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "piggybanks:block/piggybank",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "piggybanks:block/piggybank",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "piggybanks:block/piggybank"
+    },
+    "facing=west": {
+      "model": "piggybanks:block/piggybank",
+      "y": 90
+    }
+  }
+}
