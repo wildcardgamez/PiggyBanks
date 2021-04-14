@@ -30,10 +30,10 @@ import javax.annotation.Nullable;
 
 public class PiggyBankBlock extends ContainerBlock {
     public static final DirectionProperty DIR = BlockStateProperties.HORIZONTAL_FACING;
-    protected static final VoxelShape NSHAPE = Block.box(3.0D, 2.0D, 1.0D, 13.0D, 12.0D, 15.0D);
+    protected static final VoxelShape NSHAPE = Block.box(3.0D, 2.0D, 0.0D, 13.0D, 12.0D, 13.0D);
     protected static final VoxelShape ESHAPE = Block.box(3.0D, 2.0D, 3.0D, 16.0D, 12.0D, 13.0D);
-    protected static final VoxelShape SSHAPE = Block.box(3.0D, 2.0D, 2.0D, 13.0D, 12.0D, 16.0D);
-    protected static final VoxelShape WSHAPE = Block.box(2.0D, 2.0D, 3.0D, 15.0D, 12.0D, 13.0D);
+    protected static final VoxelShape SSHAPE = Block.box(3.0D, 2.0D, 3.0D, 13.0D, 12.0D, 16.0D);
+    protected static final VoxelShape WSHAPE = Block.box(0.0D, 2.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
     public PiggyBankBlock() {
         this((BlockItem) Items.GOLD_BLOCK, Items.GOLD_INGOT, Items.GOLD_NUGGET, (float) 1/162, 5184);

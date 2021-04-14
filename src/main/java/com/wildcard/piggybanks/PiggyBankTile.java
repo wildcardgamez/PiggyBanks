@@ -57,7 +57,6 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public void depositToBank(int amt) {
         bank += amt;
         setChanged();
-
     }
 
     public void collectInterest() {
