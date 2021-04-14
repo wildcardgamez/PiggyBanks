@@ -145,4 +145,27 @@ public class PiggyBankContainer extends Container {
     public ITextComponent getRateText() {
         return rateText;
     }
+
+    @Nonnull
+    @Override
+    public ItemStack quickMoveStack(PlayerEntity playerEntity, int i) {
+        Slot slot = slots.get(i);
+        if(slot != null && slot.hasItem()) {
+            if(i > 0 && i <= 3) {
+                ItemStack stack = slot.getItem().copy();
+                if(this.moveItemStackTo(slot.getItem(), 4, slots.size(), true)) {
+                    tile.depositToBank(-tile.getItemStackValue(stack));
+                    refreshPiggyBank();
+                    slot.setChanged();
+                    return ItemStack.EMPTY;
+                }
+                return stack;
+            }
+            else if(i >= 4 && this.moveItemStackTo(slot.getItem(), 0, 1, false)) {
+                return ItemStack.EMPTY;
+            }
+            return slot.getItem().copy();
+        }
+        return ItemStack.EMPTY;
+    }
 }
