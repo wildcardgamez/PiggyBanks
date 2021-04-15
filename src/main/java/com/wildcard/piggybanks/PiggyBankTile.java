@@ -21,7 +21,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     private ITextComponent name;
     private int bank = 0;
     private final PiggyBankBlock block;
-    private int lastRecDay = -1;
+    private int lastRecDay = 0;
 
     public PiggyBankTile(PiggyBankBlock blockIn) {
         super(RegistryHandler.PB_TILE.get());
@@ -59,14 +59,10 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
         setChanged();
     }
 
-    public void collectInterest() {
-        depositToBank((int) (bank * block.RATE));
-    }
-
     public String getVisualBank() {
         if(block.HAS_NUGGET) {
             if (bank % 9 > 0)
-                return (bank / 9) + "+" + (bank % 9);
+                return (bank / 9) + "+" + (bank % 9) + "n";
             return "" + (bank / 9);
         }
         return "" + bank;
@@ -75,7 +71,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public String getVisualInterest() {
         if(block.HAS_NUGGET) {
             if ((int) (bank * block.RATE % 9) > 0)
-                return (int) (bank * block.RATE / 9) + "+" + (int) (bank * block.RATE % 9);
+                return (int) (bank * block.RATE / 9) + "+" + (int) (bank * block.RATE % 9) + "n";
             return "" + (int) (bank * block.RATE / 9);
         }
         return "" + (int) (bank * block.RATE);
@@ -114,6 +110,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public CompoundNBT save(@Nonnull CompoundNBT nbt) {
         super.save(nbt);
         nbt.putInt("bank", bank);
+        nbt.putInt("day", lastRecDay);
         nbt.putString("name", ITextComponent.Serializer.toJson(name));
         return nbt;
     }
@@ -122,6 +119,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         bank = nbt.getInt("bank");
+        lastRecDay = nbt.getInt("day");
         name = ITextComponent.Serializer.fromJson(nbt.getString("name"));
     }
 
@@ -146,4 +144,16 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public void clearContent() {
         bank = 0;
     }
+
+    public void checkAndCollectInterest(int time) {
+        if(lastRecDay == 0 || lastRecDay > time) {
+            lastRecDay = time;
+            setChanged();
+        }
+        else if(lastRecDay < time) {
+            depositToBank((int) (bank * block.RATE) * (time - lastRecDay));
+            lastRecDay = time;
+        }
+    }
+
 }

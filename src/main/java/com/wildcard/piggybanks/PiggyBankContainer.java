@@ -1,6 +1,5 @@
 package com.wildcard.piggybanks;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -91,6 +90,7 @@ public class PiggyBankContainer extends Container {
     }
 
     private void refreshPiggyBank() {
+        tile.checkAndCollectInterest((int) (tile.getLevel().getDayTime()/24000));
         int bal = tile.getBank();
         if(tile.hasNugget()) {
             if (bal >= 81) {
@@ -150,7 +150,7 @@ public class PiggyBankContainer extends Container {
 
     @Nonnull
     @Override
-    public ItemStack quickMoveStack(PlayerEntity playerEntity, int i) {
+    public ItemStack quickMoveStack(@Nonnull PlayerEntity playerEntity, int i) {
         Slot slot = slots.get(i);
         if(slot != null && slot.hasItem()) {
             if(i > 0 && i <= 3) {
@@ -161,12 +161,12 @@ public class PiggyBankContainer extends Container {
                     slot.setChanged();
                     return ItemStack.EMPTY;
                 }
-                return stack;
-            }
-            else if(i >= 4 && this.moveItemStackTo(slot.getItem(), 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
-            return slot.getItem().copy();
+            else if(i >= 4 && this.moveItemStackTo(slot.getItem(), 0, 1, false)) {
+                return slot.getItem();
+            }
+            return ItemStack.EMPTY;
         }
         return ItemStack.EMPTY;
     }
