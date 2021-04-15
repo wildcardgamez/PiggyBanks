@@ -1,6 +1,5 @@
 package com.wildcard.piggybanks;
 
-import com.google.gson.JsonElement;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,14 +21,15 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     private ITextComponent name;
     private int bank = 0;
     private final PiggyBankBlock block;
-
-    public PiggyBankTile() {
-        this((PiggyBankBlock) RegistryHandler.GOLD_PB.get());
-    }
+    private int lastRecDay = -1;
 
     public PiggyBankTile(PiggyBankBlock blockIn) {
         super(RegistryHandler.PB_TILE.get());
         block = blockIn;
+    }
+
+    public PiggyBankTile() {
+        this((PiggyBankBlock) RegistryHandler.GOLD_PB.get());
     }
 
     @Nonnull

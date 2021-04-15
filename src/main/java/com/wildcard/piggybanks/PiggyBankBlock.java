@@ -35,10 +35,6 @@ public class PiggyBankBlock extends ContainerBlock {
     protected static final VoxelShape SSHAPE = Block.box(3.0D, 2.0D, 3.0D, 13.0D, 12.0D, 16.0D);
     protected static final VoxelShape WSHAPE = Block.box(0.0D, 2.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
-    public PiggyBankBlock() {
-        this((BlockItem) Items.GOLD_BLOCK, Items.GOLD_INGOT, Items.GOLD_NUGGET, (float) 1/162, 5184);
-    }
-
     public PiggyBankBlock(BlockItem block, Item item, Item nugget, float intRate, int maxInt) {
         super(Properties.copy(block.getBlock()));
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));

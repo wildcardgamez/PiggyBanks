@@ -1,5 +1,6 @@
 {
   "block.piggybanks.gold_pb": "Gold Piggybank",
   "gui.piggybanks.balance": "Balance: ",
-  "gui.piggybanks.rate": "Rate: "
+  "gui.piggybanks.rate": "Rate: ",
+  "itemGroup.piggybanks": "Piggybanks"
 }

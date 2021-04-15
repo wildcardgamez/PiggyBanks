@@ -35,7 +35,7 @@ public class  PiggyBanks
     public static final ItemGroup TAB = new ItemGroup("piggybanks") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(RegistryHandler.GOLD_PB_ITEM.get());
+            return new ItemStack(RegistryHandler.GOLD_PB.get());
         }
     };
 }

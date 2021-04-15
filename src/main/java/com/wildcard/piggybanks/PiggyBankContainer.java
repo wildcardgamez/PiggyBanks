@@ -1,5 +1,6 @@
 package com.wildcard.piggybanks;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -7,6 +8,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -18,8 +20,8 @@ public class PiggyBankContainer extends Container {
     ITextComponent balanceText;
     ITextComponent rateText;
 
-    public PiggyBankContainer(int id, PlayerInventory playerInventory) {
-        this(id, playerInventory, new PiggyBankTile(new PiggyBankBlock()));
+    public PiggyBankContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+        this(id, playerInventory, FindMyPiggy.findMyPiggy(buffer));
     }
 
     public PiggyBankContainer(int id, PlayerInventory playerInventory, PiggyBankTile tileIn) {
