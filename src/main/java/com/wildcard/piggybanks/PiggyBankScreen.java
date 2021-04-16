@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 
 public class PiggyBankScreen extends ContainerScreen<PiggyBankContainer> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(PiggyBanks.MOD_ID, "textures/gui/containers/piggy_bank_3.png");
+    private static final ResourceLocation TEXTURE2 = new ResourceLocation(PiggyBanks.MOD_ID, "textures/gui/containers/piggy_bank_2.png");
     public PiggyBankScreen(PiggyBankContainer container, PlayerInventory playerInventory, ITextComponent title) {
         super(container, playerInventory, title);
         this.leftPos = 0;
@@ -39,7 +40,10 @@ public class PiggyBankScreen extends ContainerScreen<PiggyBankContainer> {
     protected void renderBg(@Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         //Place the texture for the piggy bank gui
         assert this.minecraft != null;
-        this.minecraft.getTextureManager().bind(TEXTURE);
+        if(getMenu().tile.hasNugget())
+            this.minecraft.getTextureManager().bind(TEXTURE);
+        else
+            this.minecraft.getTextureManager().bind(TEXTURE2);
         blit(matrixStack, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 }

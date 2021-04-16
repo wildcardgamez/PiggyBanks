@@ -1,0 +1,10 @@
+{
+  "parent": "piggybanks:block/piggybank",
+  "textures": {
+    "0": "piggybanks:block/iron_pb",
+    "1": "piggybanks:block/iron_pb_back",
+    "2": "piggybanks:block/iron_pb_side",
+    "3": "piggybanks:block/iron_pb_top",
+    "particle": "piggybanks:block/iron_pb"
+  }
+}

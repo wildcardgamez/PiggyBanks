@@ -1,0 +1,10 @@
+{
+  "parent": "piggybanks:block/piggybank",
+  "textures": {
+    "0": "piggybanks:block/emerald_pb",
+    "1": "piggybanks:block/emerald_pb_back",
+    "2": "piggybanks:block/emerald_pb_side",
+    "3": "piggybanks:block/emerald_pb_top",
+    "particle": "piggybanks:block/emerald_pb"
+  }
+}

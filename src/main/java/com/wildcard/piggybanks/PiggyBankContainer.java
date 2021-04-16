@@ -28,9 +28,12 @@ public class PiggyBankContainer extends Container {
         inv = new Inventory(4);
         tile = tileIn;
         //Set up specific slots
+        int i = 0;
+        if(!tile.hasNugget())
+            i = 12;
         this.addSlot(new DepositSlot(inv, 0, 71, 28));
-        this.addSlot(new WithdrawlSlot(inv, 1, 101, 53));
-        this.addSlot(new WithdrawlSlot(inv, 2, 125, 53));
+        this.addSlot(new WithdrawlSlot(inv, 1, 101 + i, 53));
+        this.addSlot(new WithdrawlSlot(inv, 2, 125 + i, 53));
         if(tile.hasNugget())
             this.addSlot(new WithdrawlSlot(inv, 3, 149, 53));
         refreshPiggyBank();
@@ -152,10 +155,13 @@ public class PiggyBankContainer extends Container {
     @Override
     public ItemStack quickMoveStack(@Nonnull PlayerEntity playerEntity, int i) {
         Slot slot = slots.get(i);
+        int j = 0;
+        if(tile.hasNugget())
+            j++;
         if(slot != null && slot.hasItem()) {
-            if(i > 0 && i <= 3) {
+            if(i > 0 && i <= 2 + j) {
                 ItemStack stack = slot.getItem().copy();
-                if(this.moveItemStackTo(slot.getItem(), 4, slots.size(), true)) {
+                if(this.moveItemStackTo(slot.getItem(), 3 + j, slots.size(), true)) {
                     tile.depositToBank(-tile.getItemStackValue(stack));
                     refreshPiggyBank();
                     slot.setChanged();
