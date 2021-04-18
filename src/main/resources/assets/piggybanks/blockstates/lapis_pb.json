@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "piggybanks:block/lapis_pb",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "piggybanks:block/lapis_pb",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "piggybanks:block/lapis_pb"
+    },
+    "facing=west": {
+      "model": "piggybanks:block/lapis_pb",
+      "y": 90
+    }
+  }
+}

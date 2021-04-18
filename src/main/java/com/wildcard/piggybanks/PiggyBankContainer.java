@@ -77,13 +77,19 @@ public class PiggyBankContainer extends Container {
             return false;
         }
 
-        @Nonnull
         @Override
-        public ItemStack onTake(@Nonnull PlayerEntity player, @Nonnull ItemStack stack) {
+        public ItemStack remove(int i) {
+            ItemStack stack = getItem().split(i);
             tile.depositToBank(-tile.getItemStackValue(stack));
             refreshPiggyBank();
             this.setChanged();
             return stack;
+        }
+
+        @Override
+        public ItemStack onTake(PlayerEntity p_190901_1_, ItemStack p_190901_2_) {
+            refreshPiggyBank();
+            return super.onTake(p_190901_1_, p_190901_2_);
         }
     }
 

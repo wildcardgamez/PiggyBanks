@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod("piggybanks")
 public class  PiggyBanks
@@ -18,6 +19,8 @@ public class  PiggyBanks
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
+        ConfigManager.loadConfig(FMLPaths.CONFIGDIR.get().resolve(MOD_ID+ "-common.toml").toString());
 
         RegistryHandler.init();
         // Register ourselves for server and other game events we are interested in

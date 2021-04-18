@@ -12,7 +12,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,7 +22,7 @@ import javax.annotation.Nullable;
 public class PiggyBankTile extends TileEntity implements INamedContainerProvider, IClearable {
     private ITextComponent name;
     private int bank = 0;
-    private final PiggyBankBlock block;
+    private PiggyBankBlock block;
     private int lastRecDay = 0;
 
     public PiggyBankTile(PiggyBankBlock blockIn) {
@@ -70,11 +72,11 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
 
     public String getVisualInterest() {
         if(block.HAS_NUGGET) {
-            if ((int) (bank * block.RATE % 9) > 0)
-                return (int) (bank * block.RATE / 9) + "+" + (int) (bank * block.RATE % 9) + "n";
-            return "" + (int) (bank * block.RATE / 9);
+            if ((getRate() % 9) > 0)
+                return (getRate() / 9) + "+" + (getRate() % 9) + "n";
+            return "" + (getRate() / 9);
         }
-        return "" + (int) (bank * block.RATE);
+        return "" + getRate();
     }
 
     public int getItemValue(Item itemIn) {
@@ -112,6 +114,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
         nbt.putInt("bank", bank);
         nbt.putInt("day", lastRecDay);
         nbt.putString("name", ITextComponent.Serializer.toJson(name));
+        nbt.putString("block", block.getRegistryName().toString());
         return nbt;
     }
 
@@ -121,6 +124,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
         bank = nbt.getInt("bank");
         lastRecDay = nbt.getInt("day");
         name = ITextComponent.Serializer.fromJson(nbt.getString("name"));
+        block = (PiggyBankBlock) ForgeRegistries.BLOCKS.getValue(new ResourceLocation(nbt.getString("block")));
     }
 
     @Nonnull
@@ -151,9 +155,17 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
             setChanged();
         }
         else if(lastRecDay < time) {
-            depositToBank((int) (bank * block.RATE) * (time - lastRecDay));
+            for (int i = 0; i < time - lastRecDay; i++) {
+                depositToBank(getRate());
+            }
             lastRecDay = time;
         }
     }
 
+    private int getRate() {
+        int rate = (int) (bank * block.RATE.get());
+        if(rate > block.MAX_RATE.get())
+            rate = block.MAX_RATE.get();
+        return rate;
+    }
 }

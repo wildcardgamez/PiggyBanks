@@ -23,6 +23,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,7 @@ public class PiggyBankBlock extends ContainerBlock {
     protected static final VoxelShape SSHAPE = Block.box(3.0D, 2.0D, 3.0D, 13.0D, 12.0D, 16.0D);
     protected static final VoxelShape WSHAPE = Block.box(0.0D, 2.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
-    public PiggyBankBlock(BlockItem block, Item item, Item nugget, float intRate, int maxInt) {
+    public PiggyBankBlock(BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
         super(Properties.copy(block.getBlock()));
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
@@ -46,7 +47,7 @@ public class PiggyBankBlock extends ContainerBlock {
         MAX_RATE = maxInt;
     }
 
-    public PiggyBankBlock(BlockItem block, Item item, float intRate, int maxInt) {
+    public PiggyBankBlock(BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
         super(Properties.copy(block.getBlock()));
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
@@ -61,8 +62,8 @@ public class PiggyBankBlock extends ContainerBlock {
     public final Item ITEM;
     public final Item NUGGET;
     public final boolean HAS_NUGGET;
-    public final float RATE;
-    public final int MAX_RATE;
+    public final ForgeConfigSpec.DoubleValue RATE;
+    public final ForgeConfigSpec.IntValue MAX_RATE;
 
     @Nullable
     @Override
