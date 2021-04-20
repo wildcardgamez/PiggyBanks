@@ -31,6 +31,7 @@ public class RegistryHandler {
         event.enqueueWork(() -> ScreenManager.register(PB_CONTAINER.get(), PiggyBankScreen::new));
     }
 
+    public static final RegistryObject<Block> COAL_PB = createPiggyBank("coal_pb", (BlockItem) Items.COAL_BLOCK, Items.COAL, ConfigManager.coalIR, ConfigManager.coalMI);
     public static final RegistryObject<Block> IRON_PB = createPiggyBank("iron_pb", (BlockItem) Items.IRON_BLOCK, Items.IRON_INGOT, Items.IRON_NUGGET, ConfigManager.ironIR, ConfigManager.ironMI);
     public static final RegistryObject<Block> REDSTONE_PB = createPiggyBank("redstone_pb", (BlockItem) Items.REDSTONE_BLOCK, Items.REDSTONE, ConfigManager.redstoneIR, ConfigManager.redstoneMI);
     public static final RegistryObject<Block> GOLD_PB = createPiggyBank("gold_pb", (BlockItem) Items.GOLD_BLOCK, Items.GOLD_INGOT, Items.GOLD_NUGGET, ConfigManager.goldIR, ConfigManager.goldMI);
@@ -40,7 +41,7 @@ public class RegistryHandler {
     public static final RegistryObject<Block> NETHERITE_PB = createPiggyBank("netherite_pb", (BlockItem) Items.NETHERITE_BLOCK, Items.NETHERITE_INGOT, ConfigManager.netheriteIR, ConfigManager.netheriteMI);
 
     public static final RegistryObject<TileEntityType<PiggyBankTile>> PB_TILE = TILES.register("piggy_bank",
-            () -> TileEntityType.Builder.of(PiggyBankTile::new, IRON_PB.get(), REDSTONE_PB.get(), GOLD_PB.get(), LAPIS_PB.get(),
+            () -> TileEntityType.Builder.of(PiggyBankTile::new, COAL_PB.get(), IRON_PB.get(), REDSTONE_PB.get(), GOLD_PB.get(), LAPIS_PB.get(),
                     EMERALD_PB.get(), DIAMOND_PB.get(), NETHERITE_PB.get()).build(null));
 
     public static final RegistryObject<ContainerType<PiggyBankContainer>> PB_CONTAINER = CONTAINERS.register("piggy_bank",
@@ -54,6 +55,18 @@ public class RegistryHandler {
 
     public static RegistryObject<Block> createPiggyBank(String name, BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
         RegistryObject<Block> pbBlock = BLOCKS.register(name, () -> new PiggyBankBlock(block, item, intRate, maxInt));
+        ITEMS.register(name, () -> new BlockItem(pbBlock.get(), new Item.Properties().tab(PiggyBanks.TAB)));
+        return pbBlock;
+    }
+
+    public static RegistryObject<Block> createPiggyBank(String name, BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockValue) {
+        RegistryObject<Block> pbBlock = BLOCKS.register(name, () -> new PiggyBankBlock(block, item, intRate, maxInt, blockValue));
+        ITEMS.register(name, () -> new BlockItem(pbBlock.get(), new Item.Properties().tab(PiggyBanks.TAB)));
+        return pbBlock;
+    }
+
+    public static RegistryObject<Block> createPiggyBank(String name, BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockValue) {
+        RegistryObject<Block> pbBlock = BLOCKS.register(name, () -> new PiggyBankBlock(block, item, nugget, intRate, maxInt, blockValue));
         ITEMS.register(name, () -> new BlockItem(pbBlock.get(), new Item.Properties().tab(PiggyBanks.TAB)));
         return pbBlock;
     }

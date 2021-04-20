@@ -45,6 +45,7 @@ public class PiggyBankBlock extends ContainerBlock {
         HAS_NUGGET = true;
         RATE = intRate;
         MAX_RATE = maxInt;
+        BLOCK_VAL = 9;
     }
 
     public PiggyBankBlock(BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
@@ -56,6 +57,31 @@ public class PiggyBankBlock extends ContainerBlock {
         HAS_NUGGET = false;
         RATE = intRate;
         MAX_RATE = maxInt;
+        BLOCK_VAL = 9;
+    }
+
+    public PiggyBankBlock(BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
+        super(Properties.copy(block.getBlock()));
+        this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
+        BLOCK = block;
+        ITEM = item;
+        NUGGET = nugget;
+        HAS_NUGGET = true;
+        RATE = intRate;
+        MAX_RATE = maxInt;
+        BLOCK_VAL = blockVal;
+    }
+
+    public PiggyBankBlock(BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
+        super(Properties.copy(block.getBlock()));
+        this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
+        BLOCK = block;
+        ITEM = item;
+        NUGGET = null;
+        HAS_NUGGET = false;
+        RATE = intRate;
+        MAX_RATE = maxInt;
+        BLOCK_VAL = blockVal;
     }
 
     public final Item BLOCK;
@@ -64,6 +90,7 @@ public class PiggyBankBlock extends ContainerBlock {
     public final boolean HAS_NUGGET;
     public final ForgeConfigSpec.DoubleValue RATE;
     public final ForgeConfigSpec.IntValue MAX_RATE;
+    public final int BLOCK_VAL;
 
     @Nullable
     @Override

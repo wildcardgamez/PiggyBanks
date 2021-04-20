@@ -32,7 +32,7 @@ logoFile="examplemod.png" #optional
 authors="Wildcard_Gamer" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A way to keep materials like gold, emeralds, diamonds, or other valuables safe while collecting interest
+A way to keep materials like gold, emeralds, diamonds, or other valuables safe while collecting interest!
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional

@@ -87,8 +87,8 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
         }
         if(itemIn.equals(block.BLOCK)) {
             if(block.HAS_NUGGET)
-                return 81;
-            return 9;
+                return 9 * block.BLOCK_VAL;
+            return block.BLOCK_VAL;
         }
         if(block.HAS_NUGGET && itemIn.equals(block.NUGGET))
             return 1;

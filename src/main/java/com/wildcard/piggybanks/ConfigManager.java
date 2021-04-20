@@ -24,6 +24,8 @@ public class ConfigManager {
         config.setConfig(file);
     }
 
+    public static ForgeConfigSpec.DoubleValue coalIR;
+    public static ForgeConfigSpec.IntValue coalMI;
     public static ForgeConfigSpec.DoubleValue ironIR;
     public static ForgeConfigSpec.IntValue ironMI;
     public static ForgeConfigSpec.DoubleValue redstoneIR;
@@ -41,6 +43,10 @@ public class ConfigManager {
 
     public static void init() {
         builder.comment("Piggybanks Config");
+        coalIR = builder.comment("Interest rate of coal, 0 will give no interest, 1 will give 100% interest. Default is 0.015625, 1 per stack")
+                .defineInRange("vanilla.coal.interest_rate", 1/64f, 0, 1);
+        coalMI = builder.comment("Maximum amount of coal a piggybank can generate in 1 day. Default is 2304 a day")
+                .defineInRange("vanilla.coal.max_interest", 2304, 0, 5184);
         ironIR = builder.comment("Interest rate of iron, 0 will give no interest, 1 will give 100% interest. Default is 0.015625, 1 per stack")
                 .defineInRange("vanilla.iron.interest_rate", 1/64f, 0, 1);
         ironMI = builder.comment("Maximum amount of iron nuggets a piggybank can generate in 1 day. Default is 20736 a day")

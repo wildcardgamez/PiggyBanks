@@ -102,8 +102,8 @@ public class PiggyBankContainer extends Container {
         tile.checkAndCollectInterest((int) (tile.getLevel().getDayTime()/24000));
         int bal = tile.getBank();
         if(tile.hasNugget()) {
-            if (bal >= 81) {
-                if (bal >= 5184)
+            if (bal >= tile.getBlock().BLOCK_VAL * 9) {
+                if (bal >= tile.getBlock().BLOCK_VAL * 9 * 64)
                     inv.setItem(1, new ItemStack(tile.getBlock().BLOCK, 64));
                 else
                     inv.setItem(1, new ItemStack(tile.getBlock().BLOCK, bal/81));
@@ -128,8 +128,8 @@ public class PiggyBankContainer extends Container {
                 inv.setItem(3, ItemStack.EMPTY);
         }
         else {
-            if (bal >= 9) {
-                if (bal >= 576)
+            if (bal >= tile.getBlock().BLOCK_VAL) {
+                if (bal >= 64 * tile.getBlock().BLOCK_VAL)
                     inv.setItem(1, new ItemStack(tile.getBlock().BLOCK, 64));
                 else
                     inv.setItem(1, new ItemStack(tile.getBlock().BLOCK, bal/9));
