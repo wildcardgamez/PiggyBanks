@@ -7,15 +7,15 @@ import net.minecraft.block.ContainerBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.*;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -193,5 +193,33 @@ public class PiggyBankBlock extends ContainerBlock {
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(DIR);
+    }
+
+    @Override
+    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+        TileEntity tileEntity = world.getBlockEntity(pos);
+        if (tileEntity instanceof PiggyBankTile) {
+            int value = ((PiggyBankTile) tileEntity).getBank();
+            int itemVal = 1;
+            if (HAS_NUGGET)
+                itemVal = 9;
+            if (value > 0) {
+                while (value >= 64 * BLOCK_VAL * itemVal) {
+                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, 64));
+                    value -= 64 * BLOCK_VAL * itemVal;
+                }
+                if (value >= BLOCK_VAL * itemVal) {
+                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, value / (BLOCK_VAL * itemVal)));
+                    value -= (value / (BLOCK_VAL * itemVal)) * BLOCK_VAL * itemVal;
+                }
+                if (value >= itemVal)
+                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ITEM, value / itemVal));
+                value -= (value / itemVal) * itemVal;
+                if (HAS_NUGGET && value > 0)
+                        InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(NUGGET, value));
+            }
+        }
+        getBlock().playerWillDestroy(world, pos, state, player);
+        return world.setBlock(pos, fluid.createLegacyBlock(), world.isClientSide ? 11 : 3);
     }
 }
