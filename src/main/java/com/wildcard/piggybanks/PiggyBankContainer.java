@@ -175,7 +175,7 @@ public class PiggyBankContainer extends Container {
                 }
                 return ItemStack.EMPTY;
             }
-            else if(i >= 4 && this.moveItemStackTo(slot.getItem(), 0, 1, false)) {
+            else if(i >= 3 + j && this.moveItemStackTo(slot.getItem(), 0, 1, false)) {
                 return slot.getItem();
             }
             return ItemStack.EMPTY;
