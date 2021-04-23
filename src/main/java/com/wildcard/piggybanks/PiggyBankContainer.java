@@ -99,7 +99,7 @@ public class PiggyBankContainer extends Container {
     }
 
     private void refreshPiggyBank() {
-        tile.checkAndCollectInterest((int) (tile.getLevel().getDayTime()/24000));
+        tile.checkAndCollectInterest((int) (tile.getLevel().getDayTime()/(24000*ConfigManager.daysPerCompound.get())));
         int bal = tile.getBank();
         if(tile.hasNugget()) {
             if (bal >= tile.getBlock().BLOCK_VAL * 9) {
