@@ -30,8 +30,8 @@ public class PiggyBankScreen extends ContainerScreen<PiggyBankContainer> {
     protected void renderLabels(@Nonnull MatrixStack matrixStack, int x, int y) {
         //Draw the name of the piggy bank and the inventory titles
         this.font.draw(matrixStack, title, 8.0f, 6.0f, 4210752);
-        this.font.draw(matrixStack, getMenu().getBalanceText(), 8.0f, 52.0f, 4210752);
-        this.font.draw(matrixStack, getMenu().getRateText(), 8.0f, 62.0f, 4210752);
+        this.font.draw(matrixStack, getMenu().tile.getVisualBank(), 8.0f, 52.0f, 4210752);
+        this.font.draw(matrixStack, getMenu().tile.getVisualInterest(), 8.0f, 62.0f, 4210752);
         this.font.draw(matrixStack, inventory.getDisplayName(),8.0f, 72.0f, 4210752);
     }
 

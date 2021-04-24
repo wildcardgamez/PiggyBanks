@@ -16,8 +16,6 @@ import javax.annotation.Nonnull;
 public class PiggyBankContainer extends Container {
     public final PiggyBankTile tile;
     Inventory inv;
-    ITextComponent balanceText;
-    ITextComponent rateText;
 
     public PiggyBankContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
         this(id, playerInventory, FindMyPiggy.findMyPiggy(buffer));
@@ -145,16 +143,6 @@ public class PiggyBankContainer extends Container {
             else
                 inv.setItem(2, ItemStack.EMPTY);
         }
-        balanceText = new TranslationTextComponent("gui.piggybanks.balance").append(tile.getVisualBank());
-        rateText = new TranslationTextComponent("gui.piggybanks.rate").append(tile.getVisualInterest());
-    }
-
-    public ITextComponent getBalanceText() {
-        return balanceText;
-    }
-
-    public ITextComponent getRateText() {
-        return rateText;
     }
 
     @Nonnull

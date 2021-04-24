@@ -14,6 +14,7 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
@@ -39,7 +40,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public ITextComponent getDisplayName() {
         if (name != null)
             return name;
-        return getBlockState().getBlock().getName();
+        return block.getName();
     }
 
     public void setDisplayName(ITextComponent nameIn) {
@@ -61,22 +62,22 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
         setChanged();
     }
 
-    public String getVisualBank() {
+    public ITextComponent getVisualBank() {
         if(block.HAS_NUGGET) {
             if (bank % 9 > 0)
-                return (bank / 9) + "+" + (bank % 9) + "n";
-            return "" + (bank / 9);
+                return new TranslationTextComponent("gui.piggybanks.balance").append((bank / 9) + "+" + (bank % 9) + "n");
+            return new TranslationTextComponent("gui.piggybanks.balance").append("" + (bank / 9));
         }
-        return "" + bank;
+        return new TranslationTextComponent("gui.piggybanks.balance").append("" + bank);
     }
 
-    public String getVisualInterest() {
+    public ITextComponent getVisualInterest() {
         if(block.HAS_NUGGET) {
             if ((getRate() % 9) > 0)
-                return (getRate() / 9) + "+" + (getRate() % 9) + "n";
-            return "" + (getRate() / 9);
+                return new TranslationTextComponent("gui.piggybanks.rate").append((getRate() / 9) + "+" + (getRate() % 9) + "n");
+            return new TranslationTextComponent("gui.piggybanks.rate").append("" + (getRate() / 9));
         }
-        return "" + getRate();
+        return new TranslationTextComponent("gui.piggybanks.rate").append("" + getRate());
     }
 
     public int getItemValue(Item itemIn) {

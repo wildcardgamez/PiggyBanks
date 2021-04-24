@@ -9,13 +9,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -219,7 +224,6 @@ public class PiggyBankBlock extends ContainerBlock {
                         InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(NUGGET, value));
             }
         }
-        getBlock().playerWillDestroy(world, pos, state, player);
-        return world.setBlock(pos, fluid.createLegacyBlock(), world.isClientSide ? 11 : 3);
+        return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
     }
 }
