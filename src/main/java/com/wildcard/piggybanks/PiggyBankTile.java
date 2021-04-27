@@ -40,7 +40,7 @@ public class PiggyBankTile extends TileEntity implements INamedContainerProvider
     public ITextComponent getDisplayName() {
         if (name != null)
             return name;
-        return block.getName();
+        return new TranslationTextComponent("block." + block.getRegistryName().toString().replace(':', '.'));
     }
 
     public void setDisplayName(ITextComponent nameIn) {
