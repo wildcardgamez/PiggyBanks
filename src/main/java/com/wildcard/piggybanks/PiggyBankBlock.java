@@ -201,7 +201,7 @@ public class PiggyBankBlock extends ContainerBlock {
     }
 
     @Override
-    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+    public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         TileEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity instanceof PiggyBankTile) {
             int value = ((PiggyBankTile) tileEntity).getBank();
@@ -224,6 +224,6 @@ public class PiggyBankBlock extends ContainerBlock {
                         InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(NUGGET, value));
             }
         }
-        return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+        super.onRemove(state, world, pos, newState, isMoving);
     }
 }
