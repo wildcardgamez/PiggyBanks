@@ -41,8 +41,8 @@ public class PiggyBankBlock extends ContainerBlock {
     protected static final VoxelShape SSHAPE = Block.box(3.0D, 2.0D, 3.0D, 13.0D, 12.0D, 16.0D);
     protected static final VoxelShape WSHAPE = Block.box(0.0D, 2.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
-    public PiggyBankBlock(BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
-        super(Properties.copy(block.getBlock()));
+    public PiggyBankBlock(Block.Properties properties, BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
         ITEM = item;
@@ -53,8 +53,8 @@ public class PiggyBankBlock extends ContainerBlock {
         BLOCK_VAL = 9;
     }
 
-    public PiggyBankBlock(BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
-        super(Properties.copy(block.getBlock()));
+    public PiggyBankBlock(Block.Properties properties, BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
         ITEM = item;
@@ -65,8 +65,8 @@ public class PiggyBankBlock extends ContainerBlock {
         BLOCK_VAL = 9;
     }
 
-    public PiggyBankBlock(BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
-        super(Properties.copy(block.getBlock()));
+    public PiggyBankBlock(Block.Properties properties, BlockItem block, Item item, Item nugget, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
         ITEM = item;
@@ -77,8 +77,8 @@ public class PiggyBankBlock extends ContainerBlock {
         BLOCK_VAL = blockVal;
     }
 
-    public PiggyBankBlock(BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
-        super(Properties.copy(block.getBlock()));
+    public PiggyBankBlock(Block.Properties properties, BlockItem block, Item item, ForgeConfigSpec.DoubleValue intRate, ForgeConfigSpec.IntValue maxInt, int blockVal) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(DIR, Direction.NORTH));
         BLOCK = block;
         ITEM = item;
