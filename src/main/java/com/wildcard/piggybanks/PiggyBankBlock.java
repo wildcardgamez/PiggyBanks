@@ -202,27 +202,29 @@ public class PiggyBankBlock extends ContainerBlock {
 
     @Override
     public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
-        TileEntity tileEntity = world.getBlockEntity(pos);
-        if (tileEntity instanceof PiggyBankTile) {
-            int value = ((PiggyBankTile) tileEntity).getBank();
-            int itemVal = 1;
-            if (HAS_NUGGET)
-                itemVal = 9;
-            if (value > 0) {
-                while (value >= 64 * BLOCK_VAL * itemVal) {
-                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, 64));
-                    value -= 64 * BLOCK_VAL * itemVal;
-                }
-                if (value >= BLOCK_VAL * itemVal) {
-                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, value / (BLOCK_VAL * itemVal)));
-                    value -= (value / (BLOCK_VAL * itemVal)) * BLOCK_VAL * itemVal;
-                }
-                if (value >= itemVal)
-                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ITEM, value / itemVal));
-                value -= (value / itemVal) * itemVal;
-                if (HAS_NUGGET && value > 0)
-                        InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(NUGGET, value));
-            }
+        if (state.getBlock() != newState.getBlock()) {
+          TileEntity tileEntity = world.getBlockEntity(pos);
+          if (tileEntity instanceof PiggyBankTile) {
+              int value = ((PiggyBankTile) tileEntity).getBank();
+              int itemVal = 1;
+              if (HAS_NUGGET)
+                  itemVal = 9;
+              if (value > 0) {
+                  while (value >= 64 * BLOCK_VAL * itemVal) {
+                      InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, 64));
+                      value -= 64 * BLOCK_VAL * itemVal;
+                  }
+                  if (value >= BLOCK_VAL * itemVal) {
+                      InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BLOCK, value / (BLOCK_VAL * itemVal)));
+                      value -= (value / (BLOCK_VAL * itemVal)) * BLOCK_VAL * itemVal;
+                  }
+                  if (value >= itemVal)
+                      InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ITEM, value / itemVal));
+                  value -= (value / itemVal) * itemVal;
+                  if (HAS_NUGGET && value > 0)
+                          InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(NUGGET, value));
+              }
+          }
         }
         super.onRemove(state, world, pos, newState, isMoving);
     }
