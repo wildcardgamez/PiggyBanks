@@ -46,8 +46,8 @@ public class PiggyBankContainer extends Container {
     }
 
     private class DepositSlot extends Slot {
-        public DepositSlot(IInventory inventory, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_) {
-            super(inventory, p_i1824_2_, p_i1824_3_, p_i1824_4_);
+        public DepositSlot(IInventory inventory, int pIndex, int pX, int pY) {
+            super(inventory, pIndex, pX, pY);
         }
 
         @Override
@@ -64,8 +64,8 @@ public class PiggyBankContainer extends Container {
     }
 
     private class WithdrawlSlot extends Slot {
-        public WithdrawlSlot(IInventory inventory, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_) {
-            super(inventory, p_i1824_2_, p_i1824_3_, p_i1824_4_);
+        public WithdrawlSlot(IInventory inventory, int pIndex, int pX, int pY) {
+            super(inventory, pIndex, pX, pY);
         }
 
         @Override
@@ -83,14 +83,14 @@ public class PiggyBankContainer extends Container {
         }
 
         @Override
-        public ItemStack onTake(PlayerEntity p_190901_1_, ItemStack p_190901_2_) {
+        public ItemStack onTake(PlayerEntity pPlayer, ItemStack pStack) {
             refreshPiggyBank();
-            return super.onTake(p_190901_1_, p_190901_2_);
+            return super.onTake(pPlayer, pStack);
         }
     }
 
     @Override
-    public boolean stillValid(@Nonnull PlayerEntity p_75145_1_) {
+    public boolean stillValid(@Nonnull PlayerEntity pPlayer) {
         return true;
     }
 
